@@ -3,11 +3,16 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
+import java.nio.file.*;
+import java.util.Collection;
+
 
 public class Finder {
 
     public static void main(String[] args) {
-        new Finder().start(args);
+        /*new Finder().start(args);*/
+        String jarPath = Finder.class.getProtectionDomain().getCodeSource().getLocation().getPath();  //возваращет путь испольняемого-jar файла
+        System.out.println(jarPath);
     }
 
     @Option(name = "-d", usage = "Find file in the current directory")
@@ -28,6 +33,10 @@ public class Finder {
             parse.printUsage(System.err);
             return;
         }
+    }
+
+    private static void d(String directory) {
+
     }
 
 }
