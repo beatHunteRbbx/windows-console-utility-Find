@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 
 public class Find {
 
@@ -13,14 +14,21 @@ public class Find {
         fileName = file;
     }
 
-    public final String d(String directoryName, String fileName) {
+    public final void d(String directoryName, String fileName, boolean recursive) {
         File file = new File(directoryName);
         File[] arrFiles = file.listFiles();
+        ArrayList<File> arrDirectories = new ArrayList<>();
         boolean hasFile = false;
         for (File f : arrFiles) {
-            if (f.toString().contains(fileName)) hasFile = true;
+            if (f.toString().contains(fileName))
+                hasFile = true;
+            if (f.isDirectory()) arrDirectories.add(f);
         }
-        if (hasFile) return directoryName;
-        else return "There is no " + fileName + " in this directory.";
+        if (hasFile) System.out.println(fileName + " is in " + directoryName);
+        else if (!hasFile && recursive)
+            arrDirectories.forEach(f -> d(f.toString(),fileName, recursive));
+            arrDirectories.remove(directoryName);
+        if (!hasFile && arrDirectories.isEmpty())
+            System.out.println("There is no " + fileName + " in " + directoryName + " and in all subdirectories");
     }
 }

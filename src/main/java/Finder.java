@@ -38,9 +38,8 @@ public class Finder {
             System.err.println("java -jar find.jar -r -d directoryName fileThatNeedToFind");
             parse.printUsage(System.err);
         }
-
         Find find = new Find(directoryName, fileName);
-        System.out.println(find.d(directoryName, fileName));
+        find.d(directoryName, fileName, recursive);
     }
 
 
