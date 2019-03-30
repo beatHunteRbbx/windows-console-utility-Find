@@ -38,8 +38,11 @@ public class Finder {
             System.err.println("java -jar find.jar -r -d directoryName fileThatNeedToFind");
             parse.printUsage(System.err);
         }
+        if (directoryName == null) directoryName = ".";
         Find find = new Find(directoryName, fileName);
         find.d(directoryName, fileName, recursive);
+        find.hasFile();
+
     }
 
 

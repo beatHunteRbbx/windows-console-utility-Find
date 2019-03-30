@@ -5,6 +5,7 @@ public class Find {
 
     private final String directoryName;
     private final String fileName;
+    private boolean haveFile;
 
     private String getDirectoryName() { return directoryName; }
     private String getFileName() { return fileName; }
@@ -18,17 +19,28 @@ public class Find {
         File file = new File(directoryName);
         File[] arrFiles = file.listFiles();
         ArrayList<File> arrDirectories = new ArrayList<>();
-        boolean hasFile = false;
+        haveFile = false;
         for (File f : arrFiles) {
-            if (f.toString().contains(fileName))
-                hasFile = true;
+            if (f.toString().contains(fileName)) {
+                haveFile = true;
+                break;
+            }
             if (f.isDirectory()) arrDirectories.add(f);
         }
-        if (hasFile) System.out.println(fileName + " is in " + directoryName);
-        else if (!hasFile && recursive)
-            arrDirectories.forEach(f -> d(f.toString(),fileName, recursive));
+        if (haveFile) {
+            if (directoryName.equals(".")) System.out.println(fileName + " is in current directory.");
+            else System.out.println(fileName + " is in " + directoryName);
+        }
+        if (!haveFile && recursive) {
+            arrDirectories.forEach(f -> d(f.toString(), fileName, recursive));
             arrDirectories.remove(directoryName);
-        if (!hasFile && arrDirectories.isEmpty())
-            System.out.println("There is no " + fileName + " in " + directoryName + " and in all subdirectories");
+        }
+    }
+
+    public final void hasFile() {
+        if (!haveFile) {
+            if (directoryName.equals(".")) System.out.println("There is no " + fileName + " is in the current directory.");
+            else System.out.println("There is no " + fileName + " in " + directoryName);
+        }
     }
 }
