@@ -23,7 +23,6 @@ public class Find {
         for (File f : arrFiles) {
             if (f.toString().contains(fileName)) {
                 haveFile = true;
-                break;
             }
             if (f.isDirectory()) arrDirectories.add(f);
         }
@@ -31,7 +30,7 @@ public class Find {
             if (directoryName.equals(".")) System.out.println(fileName + " is in current directory.");
             else System.out.println(fileName + " is in " + directoryName);
         }
-        if (!haveFile && recursive) {
+        if (recursive) {
             arrDirectories.forEach(f -> d(f.toString(), fileName, recursive));
             arrDirectories.remove(directoryName);
         }
