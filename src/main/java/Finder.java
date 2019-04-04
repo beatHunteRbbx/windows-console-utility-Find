@@ -8,12 +8,8 @@ import java.io.*;
 
 public class Finder {
 
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) {
         new Finder().start(args);
-        /*String jarPath = Finder.class.getProtectionDomain().getCodeSource().getLocation().getPath();  //возваращет путь испольняемого-jar файла
-        System.out.println(jarPath);
-        File file = new File("."); //путь к текущему каталогу*/
     }
 
     @Option(name = "-d", usage = "Find file in the current directory")
@@ -34,6 +30,8 @@ public class Finder {
             System.err.println("java -jar find.jar -r -d directory fileThatNeedToFind");
             parse.printUsage(System.err);
         }
-        if (directory.isDirectory()) Find.d(directory, fileName, recursive);
+        if (directory.isDirectory()) {
+            for (String str : Find.d(directory, fileName, recursive)) System.out.println(str);
+        }
     }
 }
