@@ -31,7 +31,7 @@ public class Finder {
             parse.printUsage(System.err);
         }
         if (directory.isDirectory()) {
-            for (String str : Find.d(directory, fileName, recursive)) System.out.println(str);
+            for (String path : Find.d(directory, fileName, recursive)) System.out.println(path);
         }
     }
 }
